@@ -18,20 +18,17 @@ function calculate_roman_number(string $input): string
         $numbers[] = ROMAN_NUMBERS[$number];
     }
 
-    for ($index = 0; $index < count($numbers); ++$index) {
-        if (count($numbers) - 1 === $index) {
-            $result_number += $numbers[$index];
+    $lastIndex = count($numbers) - 1;
+
+    foreach ($numbers as $index => $value) {
+        if ($lastIndex !== $index && $value < $numbers[$index + 1]) {
+            $result_number -= $value;
             continue;
         }
-
-        if ($numbers[$index] < $numbers[$index + 1]) {
-            $result_number -= $numbers[$index];
-        } else {
-            $result_number += $numbers[$index];
-        }
+        $result_number += $value;
     }
 
-    $result.=$result_number;
+    $result .= $result_number;
 
     return $result;
 }
